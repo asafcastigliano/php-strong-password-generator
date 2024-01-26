@@ -2,8 +2,6 @@
 
     include __DIR__."/functions/functions.php";
 
-    generaPassword($lunghezza = 12);
-
     $lunghezzaDefault = 12; 
 
     
