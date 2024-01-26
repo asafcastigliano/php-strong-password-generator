@@ -1,6 +1,23 @@
 <?php
+    function generaPassword($lunghezza = 12) {
+        $caratteri = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-=+;:,.<>?';
+        $password = '';
+        for ($i = 0; $i < $lunghezza; $i++) {
+            $password .= $caratteri[rand(0, strlen($caratteri) - 1)];
+        }
+        return $password;
+    }
 
+    $lunghezzaDefault = 12; 
 
+    
+    if (isset($_GET['lunghezza'])) {
+        $lunghezza = intval($_GET['lunghezza']);
+        $passwordGenerata = generaPassword($lunghezza);
+    } else {
+        $lunghezza = $lunghezzaDefault;
+        $passwordGenerata = 'La tua password generata apparirà qui';
+    }
 ?>
 
 
@@ -18,7 +35,25 @@
 
 <body>
 
+    <h1>Generatore di Password</h1>
+    <form action="" method="get">
+        <label for="lunghezza">Lunghezza della password: <span
+                id="lunghezzaValore"><?php echo $lunghezza; ?></span></label>
+        <input type="range" id="lunghezza" name="lunghezza" min="1" max="25" value="<?php echo $lunghezza; ?>"
+            oninput="document.getElementById('lunghezzaValore').textContent = this.value">
+        <button type="submit">Genera Password</button>
+    </form>
+    <p class="password">Password generata: <strong><?php echo $passwordGenerata; ?></strong></p>
 
+    <script>
+    var slider = document.getElementById("lunghezza");
+    var output = document.getElementById("lunghezzaValore");
+    output.innerHTML = slider.value;
+
+    slider.oninput = function() {
+        output.innerHTML = this.value;
+    }
+    </script>
 
 </body>
 
